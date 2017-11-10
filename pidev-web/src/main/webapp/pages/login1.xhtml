@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/template.xhtml">
+
+<ui:define name="title">Welcome</ui:define>
+<ui:define name="content">
+<br />
+<div style="text-align:center; ">
+<h1 class="login-heading">
+ 
+      <strong>Welcome</strong> Here you can create an account as a volunteer</h1>
+      </div>
+	 <br />
+			 <h:form>
+
+<div style="
+    
+    position: absolute; 
+    top: 100;
+    bottom: 250;
+    left: 0;
+    right: 0;
+    width:500px;
+    height: 250px;
+    margin-left:100px;
+    margin-bottom:0px;
+    border:5px;
+    border-color:#ff7f50;
+    "> 
+<h3>Image</h3>
+<h4>Fit</h4>
+	<div class="box alt" >
+    <div class="row 50% uniform">
+    <div class="4u"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+	 
+</div>
+</div>
+ </div>
+<div class="container">
+  
+<div class="login">
+  	
+
+      <div style="
+    top: 200;
+ margin-left: 125px;
+margin-right:0;
+width: 85%;
+text-align:center;
+    "> 
+      
+      <form method="post">
+        <input type="text" name="FirstName" placeholder="FirstName" required="required" class="field half first" size=""/>
+        <input type="text" name="LastName" placeholder="LastName" required="required" class="field half first" />
+          <input type="password" name="password" placeholder="Password" required="required" class="field half first" />
+          <input type="password" name="Rpassword" placeholder="Repeate Password" required="required" class="field half first" />
+            <input type="text" name="Address" placeholder="Address" required="required" class="field half first" />
+         
+ <div class="12u$">
+	 <div class="select-wrapper" style=" margin-left:265px; width: 48%  ">
+	<select name="demo-category" id="demo-category">
+	<option value="">- Region -</option>
+	<option value="1">Tunis</option>
+	<option value="2">Ariana</option>
+		<option value="3">Mannouba</option>
+		<option value="4">Ben arous</option>
+	</select>
+	</div>
+	</div>
+	<BR />
+	<div class="4u 12u$(small)">
+<input type="radio" id="demo-priority-low" name="demo-priority" />
+		<label for="demo-priority-low">Low Priority</label>
+	</div>
+	<div class="4u 12u$(small)">
+	<input type="radio" id="demo-priority-normal" name="demo-priority"/>
+   <label for="demo-priority-normal">Normal Priority</label>
+	</div>
+<div class="4u$ 12u$(small)">
+				<input type="radio" id="demo-priority-high" name="demo-priority"/>
+		<label for="demo-priority-high">High Priority</label>
+	</div>
+	
+ 
+<div class="login-footer">
+             <a href="#" class="lnk">
+              <span class="icon icon--min">ಠ╭╮ಠ</span> 
+              I've forgotten something
+            </a>
+            
+            <p>         <h1></h1><button type="submit" class="btn btn--right">Sign in  </button></p>
+    
+          </div>
+      </form>
+      </div>
+  </div></div>
+</h:form>
+
+
+ 
+</ui:define>
+</ui:composition>
