@@ -1,21 +1,32 @@
 package com.esprit.pidev.presentation.mbeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 
 import org.primefaces.event.FlowEvent;
-
+import org.richfaces.resource.optimizer.Faces;
 
 import com.esprit.pidev.entity.Contrat;
 import com.esprit.pidev.entity.Job;
 import com.esprit.pidev.entity.SecteurActivite;
 import com.esprit.pidev.services.JobsService;
+import com.esprit.pidev.services.MailService;
+import com.esprit.pidev.util.EmailSender;
+
+
+
 
 
 @ManagedBean
@@ -37,16 +48,124 @@ public class JobBean implements Serializable  {
 	private String duréeJob;
 	private Date finDePublication;
 	private String adresseJob;
-	private String InfosCompl;
-	
+	private String infosCompl;
+	private String indexationJob;
 	private Contrat typeContrat;
 	private SecteurActivite servActivite;
+	private String contacter;
+	private String recevoirCv;
+	private Job j;
 	
-	private String RecevoirCv;
+
+
+	public Job getJ() {
+		return j;
+	}
+
+	public void setJ(Job j) {
+		this.j = j;
+	}
+
+	private List<Job> jobs;
+	
+	private  int jobIdToBeView;
+	
+	////
+	private String emailaddress;
+	private String subject;
+	private String body;
+	
+	public String getEmailaddress() {
+		return emailaddress;
+	}
+
+	public void setEmailaddress(String emailaddress) {
+		this.emailaddress = emailaddress;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
 	@EJB
-	JobsService jobService;
+	JobsService jobService;  
 	
-	 private boolean skip ;
+	@EJB
+	MailService mailService;
+	
+
+	public int getJobIdToBeView() {
+	
+		return jobIdToBeView;
+	}
+	
+	public Job GoToNextView(Job e) 
+	{
+		FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("car", e);
+		j=e;
+		return e;
+		
+		
+	}
+
+
+
+	@PostConstruct
+	public void init()
+	{
+		 
+		    
+		    
+		                
+		  jobs = new ArrayList<>();
+		  jobs = jobService.findAllJobs();
+		 
+	}
+	
+	  
+	 public List<Job> getJobs() {
+		 jobs = jobService.findAllJobs();
+		return jobs;
+	}
+
+
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
+	}
+
+
+	public String getIndexationJob() {
+		return indexationJob;
+	}
+	 
+
+	public String getContacter() {
+		return contacter;
+	}
+
+
+	public void setContacter(String contacter) {
+		this.contacter = contacter;
+	}
+
+
+	public void setIndexationJob(String indexationJob) {
+		this.indexationJob = indexationJob;
+	}
+
+	private boolean skip ;
 	 public boolean isSkip() {
 	        return skip;
 	    }
@@ -62,7 +181,7 @@ public class JobBean implements Serializable  {
 	    }
 	
 
-
+	    
 	public Date getCurrentDate() {
 		 Calendar currentDate = Calendar.getInstance();
 		   
@@ -74,15 +193,36 @@ public class JobBean implements Serializable  {
         return currentDate.getTime(); 
 		
 	}
+	 public void submit() {
+	        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
 	public void addemploye()
 	
 	
-	{	
-			System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-			jobService.ajouterJob(new Job(titre,contenutJob,profil,nbrPOste));
+	{		
+			jobService.ajouterJob(new Job(titre, contenutJob, profil, nbrPOste, dateDebJob, duréeJob, finDePublication, adresseJob, infosCompl, indexationJob, typeContrat, servActivite, contacter, recevoirCv));
 		
 	}
+	public void envoyerMaile(String emailadress)
+	{	
+		System.out.println("aaaaaaaaaaammpa");
+		EmailSender.SendEmail(emailadress, "Acceptation", "Your Demande is  Accepted");
+	
+	
+	}
+	public JobsService getJobService() {
+		return jobService;
+	}
+
+	
+
+
+
+	public void setJobService(JobsService jobService) {
+		this.jobService = jobService;
+	}
+
 
 	public String getTitre() {
 		return titre;
@@ -148,13 +288,7 @@ public class JobBean implements Serializable  {
 		this.adresseJob = adresseJob;
 	}
 
-	public String getInfosCompl() {
-		return InfosCompl;
-	}
-
-	public void setInfosCompl(String infosCompl) {
-		InfosCompl = infosCompl;
-	}
+	
 
 	public Contrat getTypeContrat() {
 		return typeContrat;
@@ -172,17 +306,24 @@ public class JobBean implements Serializable  {
 		this.servActivite = servActivite;
 	}
 
-	public String getRecevoirCv() {
-		return RecevoirCv;
+
+	public String getInfosCompl() {
+		return infosCompl;
 	}
 
-	public void setRecevoirCv(String recevoirCv) {
-		RecevoirCv = recevoirCv;
+
+	public void setInfosCompl(String infosCompl) {
+		this.infosCompl = infosCompl;
 	}
-	
-	
-	
-	
-	
-	
+
+
+	public String getRecevoirCv() {
+		return recevoirCv;
+	}
+
+
+	public void setRecevoirCv(String recevoirCv) {
+		this.recevoirCv = recevoirCv;
+	}
+
 }

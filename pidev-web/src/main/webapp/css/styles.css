@@ -62,9 +62,9 @@ body {
     .tit
     {
     font-size: 20px;
-    color: #C0C0C0;
-    font-style: gras;
+    font-style:gras;
     border-bottom:1px solid green;
+    font-weight: bold;
     	
     }
       .titS

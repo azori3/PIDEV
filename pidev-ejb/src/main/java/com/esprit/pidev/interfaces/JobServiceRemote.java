@@ -16,10 +16,12 @@ public interface JobServiceRemote {
 	public int ajouterJob(Job j);
 	public void affecterJobAVolunteer(int userID,int jobID);
 	public List<Job>getJobByServieActivité(String secteur);
-	public Job getJobByTitre(String titre);
+	public List<Job>  getJobByTitre(String titre);
 	public List<Job> findAllJobs();
 	public void deleteJobById(int jibId);
 	public void updateJob(Job job);
 	public List<Job> findBydateDebut(Date dateD);
+	
+	 public  void sendMessage(String emailaddress, String subject, String body);
 
 }

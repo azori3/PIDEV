@@ -8,14 +8,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.SimpleEmail;
 
 import com.esprit.pidev.entity.Job;
 import com.esprit.pidev.entity.Users;
 import com.esprit.pidev.interfaces.*;
 
+import javax.mail.*;
+import javax.mail.internet.*;
 
-
+import java.util.Properties;
 
 
 
@@ -44,20 +49,20 @@ public class JobsService implements JobServiceRemote {
 	}
 	@Override
 	public List<Job> getJobByServieActivité(String secteur) {
+		
+		return null;
+	}
+	@Override
+	public List<Job>  getJobByTitre(String titre) {
+
+		
 		List<Job> query = em.createQuery("Select e from Job e "
-			    + "where e.secteur=:secteur",Job.class).getResultList();
-				((Query) query).setParameter("secteur",secteur);
+			    + "where e.titre=:titre",Job.class).getResultList();
+				((Query) query).setParameter("titre",titre);
 				
 				
 				
 				return query;
-		
-	}
-	@Override
-	public Job getJobByTitre(String titre) {
-
-		
-		return null;
 	}
 	@Override
 	public List<Job> findAllJobs() {
@@ -81,9 +86,33 @@ public class JobsService implements JobServiceRemote {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	 public  void sendMessage(String emailaddress, String subject, String body) {
+	        try {
+	           Properties props = new Properties();
+	           props.setProperty("mail.smtp.port", "25");
+	           props.setProperty("hichem.alouis123@gmail.com", "tunis123456");
+
+	           Session mailSession = Session.getDefaultInstance(props, null);
+	           Transport transport = mailSession.getTransport();
+
+	           MimeMessage message = new MimeMessage(mailSession);
+	           message.setSubject("Testing javamail plain");
+	           message.setContent("This is a test", "text/plain");
+	           message.addRecipient(Message.RecipientType.TO, new InternetAddress("ali.methnani@esprit.tn"));
+
+	           transport.connect();
+	           transport.sendMessage(message,
+	                   message.getRecipients(Message.RecipientType.TO));
+	           transport.close();
+	        } catch (MessagingException ex) {
+	           ex.printStackTrace();
+	           System.out.println("failed");
+	        }
+	
 
 	
 	
-	
+	}
 
 }

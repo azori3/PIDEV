@@ -15,7 +15,12 @@ public class Job implements Serializable {
 
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
+	private Users users;
 	private String titre;
 	private String contenutJob;
 	private String profil;
@@ -24,177 +29,154 @@ public class Job implements Serializable {
 	private String duréeJob;
 	private Date finDePublication;
 	private String adresseJob;
-	private String InfosCompl;
-	
+	private String infosCompl;
+	private String indexationJob;
 	private Contrat typeContrat;
 	private SecteurActivite servActivite;
-	
-	private String RecevoirCv;
-	
-	
-	
-	
-	
-	
+	private String contacter;
+	private String recevoirCv;
 
-	public Job(String titre, String contenutJob, String profil,int nbrPoste) {
+
+
+	 public Job( String titre, String contenutJob, String profil, int nbrPOste, Date dateDebJob,
+			String duréeJob, Date finDePublication, String adresseJob, String infosCompl, String indexationJob,
+			Contrat typeContrat, SecteurActivite servActivite, String contacter, String recevoirCv) {
 		super();
+	
 		this.titre = titre;
 		this.contenutJob = contenutJob;
 		this.profil = profil;
-		this.nbrPOste = nbrPoste;
-	}
-
-
-
-	public String getContenutJob() {
-		return contenutJob;
-	}
-
-
-
-	public void setContenutJob(String contenutJob) {
-		this.contenutJob = contenutJob;
-	}
-
-
-
-	public Contrat getTypeContrat() {
-		return typeContrat;
-	}
-
-
-
-	public void setTypeContrat(Contrat typeContrat) {
+		this.nbrPOste = nbrPOste;
+		this.dateDebJob = dateDebJob;
+		this.duréeJob = duréeJob;
+		this.finDePublication = finDePublication;
+		this.adresseJob = adresseJob;
+		this.infosCompl = infosCompl;
+		this.indexationJob = indexationJob;
 		this.typeContrat = typeContrat;
-	}
-
-
-	
-	public SecteurActivite getServActivite() {
-		return servActivite;
-	}
-
-
-
-	public void setServActivite(SecteurActivite servActivite) {
 		this.servActivite = servActivite;
+		this.contacter = contacter;
+		this.recevoirCv = recevoirCv;
 	}
 
-
-
-	public String getRecevoirCv() {
-		return RecevoirCv;
-	}
-
-
-
-	public void setRecevoirCv(String recevoirCv) {
-		RecevoirCv = recevoirCv;
-	}
-
-	private static final long serialVersionUID = 1L;
-
-	private Users users;
-	
 	public Job() {
 		super();
 	}
-	
-	
 
 	public String getTitre() {
 		return titre;
 	}
 
-
-
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
 
+	public String getContenutJob() {
+		return contenutJob;
+	}
 
+	public void setContenutJob(String contenutJob) {
+		this.contenutJob = contenutJob;
+	}
 
 	public String getProfil() {
 		return profil;
 	}
 
-
-
 	public void setProfil(String profil) {
 		this.profil = profil;
 	}
-
-
 
 	public int getNbrPOste() {
 		return nbrPOste;
 	}
 
-
-
 	public void setNbrPOste(int nbrPOste) {
 		this.nbrPOste = nbrPOste;
 	}
 
-
-
-	public String getDuréeJob() {
-		return duréeJob;
-	}
-
-
-
-	public void setDuréeJob(String duréeJob) {
-		this.duréeJob = duréeJob;
-	}
-
-
-
-	public Date getFinDePublication() {
-		return finDePublication;
-	}
-
-
-
-	public void setFinDePublication(Date finDePublication) {
-		this.finDePublication = finDePublication;
-	}
-
-
-
-	public String getInfosCompl() {
-		return InfosCompl;
-	}
-
-
-
-	public void setInfosCompl(String infosCompl) {
-		InfosCompl = infosCompl;
-	}
-
-
-
-
-
-
-
 	public Date getDateDebJob() {
-		return this.dateDebJob;
+		return dateDebJob;
 	}
 
 	public void setDateDebJob(Date dateDebJob) {
 		this.dateDebJob = dateDebJob;
 	}
 
+	public String getDuréeJob() {
+		return duréeJob;
+	}
+
+	public void setDuréeJob(String duréeJob) {
+		this.duréeJob = duréeJob;
+	}
+
+	public Date getFinDePublication() {
+		return finDePublication;
+	}
+
+	public void setFinDePublication(Date finDePublication) {
+		this.finDePublication = finDePublication;
+	}
 
 	public String getAdresseJob() {
-		return this.adresseJob;
+		return adresseJob;
 	}
 
 	public void setAdresseJob(String adresseJob) {
 		this.adresseJob = adresseJob;
 	}
+
+
+	public String getIndexationJob() {
+		return indexationJob;
+	}
+
+	public void setIndexationJob(String indexationJob) {
+		this.indexationJob = indexationJob;
+	}
+
+	public Contrat getTypeContrat() {
+		return typeContrat;
+	}
+
+	public void setTypeContrat(Contrat typeContrat) {
+		this.typeContrat = typeContrat;
+	}
+
+	public SecteurActivite getServActivite() {
+		return servActivite;
+	}
+
+	public void setServActivite(SecteurActivite servActivite) {
+		this.servActivite = servActivite;
+	}
+
+	public String getContacter() {
+		return contacter;
+	}
+
+	public void setContacter(String contacter) {
+		this.contacter = contacter;
+	}
+
+
+	public String getInfosCompl() {
+		return infosCompl;
+	}
+
+	public void setInfosCompl(String infosCompl) {
+		this.infosCompl = infosCompl;
+	}
+
+	public String getRecevoirCv() {
+		return recevoirCv;
+	}
+
+	public void setRecevoirCv(String recevoirCv) {
+		this.recevoirCv = recevoirCv;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {

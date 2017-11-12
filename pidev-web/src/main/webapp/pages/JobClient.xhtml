@@ -12,14 +12,77 @@
 
 <ui:define name="title">Welcome</ui:define>
 <ui:define name="content">
-<div class="paraClis">
+<div class="para">
 <H4>BUSINESS DIRECTORY</H4>
+<p:separator />
 <H1>Missions, skills, salaries .... Find the job that suits you in our directory</H1>
+ </div>
+ <div class="str">
  
+ 
+ 
+ 
+ </div>
+<div class ="pa">
+
+
+
+
 </div>
 
-
+<div class="para">
+<h:form> 
+    <p:dataScroller value="#{jobBean.jobs}" var="car" chunkSize="10"  >
+        <f:facet name="header">
+         
+           
+9 ads of internships students - internship Development, Software Engineering Bac +4 +5 Bac and more
+        </f:facet>
+        
  
+        <h:panelGrid columns="2" style="width:80%;"  >
+            <p:graphicImage url="../pages/images/JObt.jpg"  /> 
+           
+           <p:outputPanel>
+                	
+             	
+              
+                	<h:outputLabel value="#{car.nbrPOste}POSTE" style="background-color: #6cc091; width:30%;font-size: 16px;"  />
+ 						
+                	
+                    
+                    <h:outputText value="#{car.contenutJob}"  style="font-size: 16px;"/>
+                    <p:spacer width="100" height="10" />
+         			<h:outputText value="#{car.duréeJob}" style="font-size: 16px;" />
+                    <p:spacer width="100" height="10" />
+                   
+                    
+                     <p:commandLink ajax="false" title="job" onclick="ViewOffre.jsf" action="#{jobBean.GoToNextView(car)}"
+                        value="Edit">
+                                               
+                    </p:commandLink>
+					
+                    
+                    
+                    
+          
+              
+            
+         
+          </p:outputPanel>
+ 			
+            
+        </h:panelGrid>
+          <p:separator />
+    </p:dataScroller>
+</h:form>
+</div>
+
+	
+
+
+
+
  
 </ui:define>
 </ui:composition>

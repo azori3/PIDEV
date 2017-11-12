@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="title">Welcome</ui:define>
+<ui:define name="content">
+<br />
+<div style="text-align:center; ">
+<p:outputLabel value="#{jobBean.j.titre}PPPPPp"></p:outputLabel>
+<p:outputLabel value="#{viewBean.job.duréeJob}"></p:outputLabel>
+<p:outputLabel value="#{jobBean.adresseJob}"></p:outputLabel>
+<p:outputLabel value="#{jobBean.contenutJob}"></p:outputLabel>
+
+
+<h:outputText class="titS" value="Mail:" />
+<h:inputText value="#{jobBean.emailaddress}" />
+<h:outputText class="titS" value="password:" />
+<h:inputText value="#{jobBean.body}" />
+<h:outputText class="titS" value="mailde:" />
+<h:inputText value="#{jobBean.subject}" />
+
+
+
+
+	
+
+ 
+<h:button value="Submit" action="#{jobBean.envoyerMaile(jobBean.emailaddress)}" />
+</div>
+ 
+	
+
+
+
+ 
+</ui:define>
+</ui:composition>

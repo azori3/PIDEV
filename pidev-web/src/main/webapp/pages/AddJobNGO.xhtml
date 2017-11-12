@@ -6,7 +6,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:p="http://primefaces.org/ui">
-<link type="text/css" href="../css/styles.css" rel="stylesheet"/>
+
 <ui:define name="title">Welcome</ui:define>
 <ui:define name="content" id="formId">
 <div class="para">
@@ -30,44 +30,42 @@
   					<h:outputText class="titS" value="" />
   			
  						<h:outputText class="titS"  value="JobTitle" />
-   						<p:inputTextarea rows="1" cols="20" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" required="true" label="JobTitle"/>
+   						<p:inputTextarea rows="1" cols="20" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" required="true" label="JobTitle" value="#{jobBean.titre}"/>
   
-  													<h:outputText class="titS" value="" />
- 						  							 <h:outputText id="display" class="pane"/>
+  					<h:outputText class="titS" value="" />
+ 					<h:outputText id="display" class="pane"/>
   	 	
-   	 					<h:outputText class="titS" value="Number of positions:" />
-   						 <p:inputText style="text-align: center;"/>
+   	 				<h:outputText class="titS" value="Number of positions:" />
+   					<p:inputText style="text-align: center;" value="#{jobBean.nbrPOste}"/>
  
    			 <h:outputText class="titS" value="Mission:" />
-  			  <p:inputTextarea rows="3" cols="30" counter="displaye" maxlength="200" counterTemplate="{0} characters remaining." autoResize="false" required="true" label="Mission"/>
+  			  <p:inputTextarea rows="3" cols="30" counter="displaye" maxlength="200" counterTemplate="{0} characters remaining." autoResize="false" required="true" label="Mission" value="#{jobBean.contenutJob}"/>
     		  
-    <h:outputText class="titS" value="" />
-  	<h:outputText id="displaye" class="pane"/> 
+  				  <h:outputText class="titS" value="" />
+  				<h:outputText id="displaye" class="pane"/> 
        
   
-    <h:outputText class="titS" value="" />
-    <h:outputText id="displays" class="pane"/>   
-     
-    <h:outputText class="titS" value="Profil:" />  
-    <p:inputTextarea rows="2" cols="30" counter="displa" maxlength="200" counterTemplate="{0} characters remaining." autoResize="false" />
     
-    <h:outputText  value="" />
-    <h:outputText id="displa" class="pane"/>
+    	 
+   				 <h:outputText class="titS" value="Profil:" />  
+   				<p:inputTextarea rows="2" cols="30" counter="displa" maxlength="200" counterTemplate="{0} characters remaining." autoResize="false" value="#{jobBean.profil}"/>
+    
+    			<h:outputText  value="" />
+   				<h:outputText id="displa" class="pane"/>
     
     <h:outputText class="titS" for="restricted" value="Mission start date:"/>
-    <p:calendar id="restricted"  effect="fold" mindate="today" />
+    <p:calendar id="restricted"  effect="fold" mindate="today" value="#{jobBean.dateDebJob}"/>
       
     <h:outputText class="titS"  value="Clarification of duration and period" />
-    <p:inputTextarea rows="5" cols="30" counter="displ" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" />
+    <p:inputTextarea rows="5" cols="30" counter="displ" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" value="#{jobBean.duréeJob}"/>
 
       <h:outputText  value="" />
     	  <h:outputText id="displ" class="pane"/>
       
     	<h:outputText class="titS" for="restric" value="end of publication date:"/>
-	    <p:calendar id="restric"  effect="fold" mindate="today" />
+	    <p:calendar id="restric"  effect="fold" mindate="today" value="#{jobBean.finDePublication}" />
     
-  		   <h:outputText value="Skip to last: " />
-   			  <h:selectBooleanCheckbox value="#{jobBean.skip}" />
+  		 
     
                 </p:panelGrid>
             </p:panel>
@@ -77,7 +75,7 @@
  				<p:panelGrid columns="2" layout="grid">   
  				
  				 <h:outputText class="tit" value="Indexation job:" />
-  			<h:outputText class="titS" value="" />
+  					<h:outputText class="titS" value="" />
  				
  				 <h:outputText class="titS"   value="Business sector of your association:" /> 
           		<p:selectOneMenu value="#{jobBean.servActivite}" style="width:450px" >
@@ -90,6 +88,10 @@
                 <f:selectItem itemLabel="choose" itemValue=""  />
                 <f:selectItems value="#{data.contrats}" />
             	</p:selectOneMenu>
+            	
+            	  <h:outputText value="JobAdress: " />
+   			  <h:outputText value="#{jobBean.dateDebJob}" />
+            	
               </p:panelGrid>
               
               </h:form>
@@ -101,14 +103,12 @@
                 <p:messages />
          <p:panelGrid columns="2" layout="grid">   
             
-             <h:outputText class="tit" value="Receipt of applications:" />
-  			<h:outputText class="titS" value="" />
   			
  			<h:outputText class="titS" value="first name of the contact:" />
    	 		<p:inputText style="text-align: center;"/>
    	 		
    	 		<h:outputText class="titS" value="Informations modalities:" />
-   	 		<p:inputText style="text-align: center;" text="CV ,letter,phone "/>
+   	 		<p:inputText style="text-align: center;" text="CV ,letter,phone" value="#{jobBean.infosCompl}"/>
    	 		
    	 		<h:outputText class="titS" for="console" value="Receive applications by:" />
         	<p:selectOneRadio id="console" value="#{jobBean.recevoirCv}">
@@ -116,13 +116,16 @@
             <f:selectItem itemLabel="Directly" itemValue="Directly" />
            
         </p:selectOneRadio>
+        
+        	 <h:outputText value="Adress JOb: " />
+     		<h:selectBooleanCheckbox value="#{jobBean.adresseJob}" />
  
               </p:panelGrid>
             
            <p:panelGrid columns="2" layout="grid">   
             
              <h:outputText class="tit" value="Contact for Jobs / Internships:" />
-  			<h:outputText class="titS" value="" />
+  			<h:outputText class="titS" value="#{jobBean.contacter}" />
   			
  			<h:outputText class="titS" value="Email:" />
    	 		<p:inputText style="text-align: center;"/>
@@ -146,21 +149,25 @@ pending validation by our moderator</H1>
 
 <h:outputText class="tit" value="Preview your job ad:" /> 
 
-<h:outputText class="titS"  value="JobTitle" />
-
+<h:outputLabel class="titS"  value="JobTitle" />
+<h:outputLabel value="#{jobBean.titre}" />
 
 
 <h:outputText class="titS" value="Profil:" />  
 
 
 <h:outputText class="titS" for="restricted" value="Mission start date:"/>
-
-<h:outputText class="titS" value="Receipt of applications:" />
-  <h:outputText value="Skip to last: " />
-     <h:selectBooleanCheckbox value="#{jobBean.skip}" />
+<h:outputLabel value="#{jobBean.dateDebJob}" />
 
 
-</p:panelGrid>
+<h:outputText class="titS" value="Mission:" />
+<h:outputLabel value="#{jobBean.contenutJob}" />
+<h:outputText value="Type contract: " />
+ <h:selectBooleanCheckbox value="#{jobBean.typeContrat}" />
+
+
+	</p:panelGrid>
+
  
                 <p:commandButton value="Submit" actionListener="#{jobBean.addemploye()}" update="growl" process="@this"/>
             </p:panel>
