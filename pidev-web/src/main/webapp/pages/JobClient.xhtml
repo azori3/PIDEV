@@ -56,13 +56,7 @@
          			<h:outputText value="#{car.duréeJob}" style="font-size: 16px;" />
                     <p:spacer width="100" height="10" />
                    
-                    
-                     <p:commandLink ajax="false" title="job" onclick="ViewOffre.jsf" action="#{jobBean.GoToNextView(car)}"
-                        value="Edit">
-                                               
-                    </p:commandLink>
-					
-                    
+                    <h:commandButton action="#{jobBean.GoToNextView(car)}" value="Save Car" outcome="ViewOffre"/>
                     
                     
           
