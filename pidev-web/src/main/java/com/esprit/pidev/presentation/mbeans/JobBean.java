@@ -16,13 +16,15 @@ import javax.faces.context.FacesContext;
 
 
 import org.primefaces.event.FlowEvent;
+import org.primefaces.event.SelectEvent;
 import org.richfaces.resource.optimizer.Faces;
 
 import com.esprit.pidev.entity.Contrat;
 import com.esprit.pidev.entity.Job;
 import com.esprit.pidev.entity.SecteurActivite;
+import com.esprit.pidev.entity.Signalisation;
 import com.esprit.pidev.services.JobsService;
-import com.esprit.pidev.services.MailService;
+import com.esprit.pidev.services.SignalisationService;
 import com.esprit.pidev.util.EmailSender;
 
 
@@ -30,7 +32,7 @@ import com.esprit.pidev.util.EmailSender;
 
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class JobBean implements Serializable  {
 
 	/**
@@ -50,13 +52,67 @@ public class JobBean implements Serializable  {
 	private String adresseJob;
 	private String infosCompl;
 	private String indexationJob;
+	
 	private Contrat typeContrat;
+	private String EmailJob;
 	private SecteurActivite servActivite;
 	private String contacter;
 	private String recevoirCv;
 	private Job j;
 	
+	private String Rechercher;
+	
+	private  Job job;
+	
+	
+	 
+	public String getEmailJob() {
+		return EmailJob;
+	}
+	public void setEmailJob(String emailJob) {
+		EmailJob = emailJob;
+	}
+	public Job getJob() {
+		return job;
+	}
+	public void setJob(Job job) {
+		this.job = job;
+	}
+    public List<Job> completeTheme(String query) {
+        List<Job> allThemes = jobs;
+        System.out.println("zekfmlf"+jobs.toString());
+        List<Job> filteredThemes = new ArrayList<Job>();
+         
+        for (int i = 0; i < allThemes.size(); i++) {
+            Job skin = allThemes.get(i);
+            if(skin.getTitre().toLowerCase().startsWith(query)) {
+                filteredThemes.add(skin);
+            }
+        }
+         
+        return filteredThemes;
+    }
+	
+	public List<String> completeText(String query) {
+	        List<String> results = new ArrayList<String>();
+	        for(int i = 0; i < 10; i++) {
+	            results.add(query + i);
+	        }
+	         
+	        return results;
+	    }
+    public void onItemSelect(SelectEvent event) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
+    }
 
+
+	public String getRechercher() {
+		return Rechercher;
+	}
+
+	public void setRechercher(String rechercher) {
+		Rechercher = rechercher;
+	}
 
 	public Job getJ() {
 		return j;
@@ -102,8 +158,16 @@ public class JobBean implements Serializable  {
 	@EJB
 	JobsService jobService;  
 	
+
+	
+
+	
 	@EJB
-	MailService mailService;
+	EmailSender emailsender;
+	
+	
+
+	
 	
 
 	public int getJobIdToBeView() {
@@ -111,9 +175,11 @@ public class JobBean implements Serializable  {
 		return jobIdToBeView;
 	}
 	
+
+	
 	public String GoToNextView(Job e) 
 	{	System.out.println(e.getTitre()+"teeeeeeeeeeeeeest");
-		FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("car", e);
+
 		j=e;
 		String navTo="";
 		navTo="/pages/ViewOffre";
@@ -202,14 +268,13 @@ public class JobBean implements Serializable  {
 	
 	
 	{		
-			jobService.ajouterJob(new Job(titre, contenutJob, profil, nbrPOste, dateDebJob, duréeJob, finDePublication, adresseJob, infosCompl, indexationJob, typeContrat, servActivite, contacter, recevoirCv));
+			jobService.ajouterJob(new Job(titre, contenutJob, profil, nbrPOste, dateDebJob, duréeJob, finDePublication, adresseJob, infosCompl, indexationJob, typeContrat, servActivite, contacter, recevoirCv,EmailJob));
 		
 	}
-	public void envoyerMaile(String emailadress)
+	public void envoyerMaile()
 	{	
 		System.out.println("aaaaaaaaaaammpa");
-		EmailSender.SendEmail(emailadress, "Acceptation", "Your Demande is  Accepted");
-	
+		emailsender.SendMail();
 	
 	}
 	public JobsService getJobService() {
