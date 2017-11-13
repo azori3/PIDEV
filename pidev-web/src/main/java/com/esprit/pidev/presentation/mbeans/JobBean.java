@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -30,7 +30,7 @@ import com.esprit.pidev.util.EmailSender;
 
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class JobBean implements Serializable  {
 
 	/**
@@ -111,12 +111,13 @@ public class JobBean implements Serializable  {
 		return jobIdToBeView;
 	}
 	
-	public Job GoToNextView(Job e) 
-	{
+	public String GoToNextView(Job e) 
+	{	System.out.println(e.getTitre()+"teeeeeeeeeeeeeest");
 		FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("car", e);
 		j=e;
-		return e;
-		
+		String navTo="";
+		navTo="/pages/ViewOffre";
+		return navTo;
 		
 	}
 
@@ -128,7 +129,7 @@ public class JobBean implements Serializable  {
 		 
 		    
 		    
-		                
+		        
 		  jobs = new ArrayList<>();
 		  jobs = jobService.findAllJobs();
 		 

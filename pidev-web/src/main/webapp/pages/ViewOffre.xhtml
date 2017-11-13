@@ -4,31 +4,62 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/template/template.xhtml"
                 xmlns:p="http://primefaces.org/ui">
-
+<link type="text/css" href="../css/styles.css" rel="stylesheet"/>
 <ui:define name="title">Welcome</ui:define>
 <ui:define name="content">
-<br />
-<div style="text-align:center; ">
-<p:outputLabel value="#{jobBean.j.titre}PPPPPp"></p:outputLabel>
-<p:outputLabel value="#{viewBean.job.duréeJob}"></p:outputLabel>
-<p:outputLabel value="#{jobBean.adresseJob}"></p:outputLabel>
-<p:outputLabel value="#{jobBean.contenutJob}"></p:outputLabel>
 
-
-<h:outputText class="titS" value="Mail:" />
-<h:inputText value="#{jobBean.emailaddress}" />
-<h:outputText class="titS" value="password:" />
-<h:inputText value="#{jobBean.body}" />
-<h:outputText class="titS" value="mailde:" />
-<h:inputText value="#{jobBean.subject}" />
-
-
-
-
-	
-
+<div class="para">
+      <h:panelGrid columns="2"  style="width:60%;"  class="para">
+            <p:graphicImage url="../pages/images/JObt.jpg" style="width:50%;"  /> 
+           
+           <p:outputPanel>
+                	
+             	
+              		
+                	<h:outputLabel value="#{jobBean.j.nbrPOste}POSTE" style="background-color: #6cc091; width:30%;font-size: 12px;"  />
+ 						
+                	
+                    
+                    <h:outputLabel  value="#{jobBean.j.contenutJob}"  style="font-size: 12px;"/>
+                    <p:spacer width="100" height="10" />
+         			<h:outputLabel  value="#{jobBean.j.duréeJob}" style="font-size: 12px;" />
+                    <p:spacer width="100" height="10" />
+                   
+                    <h:commandButton action="#{jobBean.GoToNextView(car)}" value="postuler" outcome="ViewOffre"/>
  
-<h:button value="Submit" action="#{jobBean.envoyerMaile(jobBean.emailaddress)}" />
+          </p:outputPanel>
+ 			
+            
+        </h:panelGrid>
+          <p:separator />
+          
+			<p:separator />
+<h:outputLabel class="tit"  style="width:7%;" value="JObTitle:" ></h:outputLabel>
+<h:outputLabel   value="#{jobBean.j.titre}PPPPPp" ></h:outputLabel>
+<h:outputLabel class="tit"  style="width:7%;" value="Mission:"></h:outputLabel>
+<h:outputLabel   value="#{jobBean.j.contenutJob}"></h:outputLabel>
+
+<h:outputLabel class="tit"  style="width:7%;" value="Location:"></h:outputLabel>
+<h:outputLabel  value="#{jobBean.j.adresseJob}"></h:outputLabel>
+
+<h:outputLabel class="tit"  style="width:7%;" value="Period:"></h:outputLabel>
+<h:outputLabel   value="#{jobBean.j.duréeJob}"></h:outputLabel>
+
+<h:outputLabel class="tit"  style="width:7%;" value="Profil:"></h:outputLabel>
+<h:outputLabel   value="#{jobBean.j.profil}"></h:outputLabel>
+
+
+ <p:spacer width="500" height="10" /> <h:button value="Postuler" action="#{jobBean.envoyerMaile(jobBean.emailaddress)}" style="text-align: center;" />
+
+ <p:commandLink value="Report this ad as abusive" type="button" onclick="PF('dlg3').show();" />
+ <p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">
+    <h:outputText value="Email" />
+    <p:inputText />
+    <h:outputText value="Message" />
+    <p:inputTextarea rows="6" cols="33" />
+     <p:spacer width="20" height="10" /> <h:button value="Postuler" action="#{jobBean.envoyerMaile(jobBean.emailaddress)}"  />
+    
+</p:dialog>
 </div>
  
 	

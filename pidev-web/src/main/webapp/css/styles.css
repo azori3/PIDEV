@@ -23,12 +23,22 @@ body {
     min-height: 320px;
 }
 .para{
-	background: #F0F8FF;
 	 margin: auto;
     width: 80%;
-    border: 3px solid #73AD21;
+    border: 3px solid #000000;
     padding: 10px;
+   
 }
+.pa{
+	
+	
+	 margin: auto;
+    width: 60%;
+    border: 3px solid #000000;
+    padding: 10px;
+    text-align: center;
+}
+
 .etp
 	{	font-size: 15px;
 		 height: auto !important;
@@ -61,9 +71,9 @@ body {
     }
     .tit
     {
-    font-size: 20px;
+    font-size: 30px;
     font-style:gras;
-    border-bottom:1px solid green;
+    border-bottom:10px solid green;
     font-weight: bold;
     	
     }
@@ -93,4 +103,9 @@ body {
     font-style: oblique;
     
     }
+    .truc-a-centrer {
+  position: absolute; /* postulat de départ */
+  top: 50%; left: 50%; /* à 50%/50% du parent référent */
+  transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+}
 }
