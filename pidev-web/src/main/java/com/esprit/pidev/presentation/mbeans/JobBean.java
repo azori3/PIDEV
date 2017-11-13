@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
-import org.richfaces.resource.optimizer.Faces;
+
 
 import com.esprit.pidev.entity.Contrat;
 import com.esprit.pidev.entity.Job;
@@ -175,6 +175,17 @@ public class JobBean implements Serializable  {
 		return jobIdToBeView;
 	}
 	
+	public String GoToNextView2() 
+	{	
+		System.out.println("teeeeeeeeeeeeeest");
+
+		
+		String navTo="";
+		
+		navTo="/pages/VueRecherche?faces-redirect=true";
+		return navTo;
+		
+	}
 
 	
 	public String GoToNextView(Job e) 
