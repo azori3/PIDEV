@@ -26,8 +26,21 @@ public class Users implements Serializable {
 	private List<Category> categorys;
 	private List<Message> messages;
 	
+	private Signalisation signalisation;
 	
 	
+	
+	
+	
+	@OneToOne(mappedBy="users")
+	public Signalisation getSignalisation() {
+		return signalisation;
+	}
+
+	public void setSignalisation(Signalisation signalisation) {
+		this.signalisation = signalisation;
+	}
+
 	private Job job;
 
 	private List<Rating> ratings;

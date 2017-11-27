@@ -35,12 +35,36 @@ public class Job implements Serializable {
 	private SecteurActivite servActivite;
 	private String contacter;
 	private String recevoirCv;
+	
+	private String EmailJob;
+	private Signalisation signalisation;
+	
+	
+	
+	
+	
+	public String getEmailJob() {
+		return EmailJob;
+	}
+
+	public void setEmailJob(String emailJob) {
+		EmailJob = emailJob;
+	}
+
+	@OneToOne(mappedBy="job")
+	public Signalisation getSignalisation() {
+		return signalisation;
+	}
+
+	public void setSignalisation(Signalisation signalisation) {
+		this.signalisation = signalisation;
+	}
 
 
 
 	 public Job( String titre, String contenutJob, String profil, int nbrPOste, Date dateDebJob,
 			String duréeJob, Date finDePublication, String adresseJob, String infosCompl, String indexationJob,
-			Contrat typeContrat, SecteurActivite servActivite, String contacter, String recevoirCv) {
+			Contrat typeContrat, SecteurActivite servActivite, String contacter, String recevoirCv,String email) {
 		super();
 	
 		this.titre = titre;
@@ -57,6 +81,7 @@ public class Job implements Serializable {
 		this.servActivite = servActivite;
 		this.contacter = contacter;
 		this.recevoirCv = recevoirCv;
+		this.EmailJob=email;
 	}
 
 	public Job() {
@@ -102,6 +127,10 @@ public class Job implements Serializable {
 	public void setDateDebJob(Date dateDebJob) {
 		this.dateDebJob = dateDebJob;
 	}
+
+
+
+	
 
 	public String getDuréeJob() {
 		return duréeJob;

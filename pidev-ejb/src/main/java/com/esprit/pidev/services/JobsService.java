@@ -24,6 +24,28 @@ import java.util.Properties;
 
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+
+
 
 
 @Stateless
@@ -52,18 +74,16 @@ public class JobsService implements JobServiceRemote {
 		
 		return null;
 	}
-	@Override
-	public List<Job>  getJobByTitre(String titre) {
-
-		
-		List<Job> query = em.createQuery("Select e from Job e "
-			    + "where e.titre=:titre",Job.class).getResultList();
-				((Query) query).setParameter("titre",titre);
+		@Override
+		public List<Job>  getJobByTitre(String titre) {
+	
+			
+			 System.out.print(titre);
+		     Query query = em.createQuery("Select  a From Job a where a.titre like :titre  ");
+				query.setParameter("titre", "%"+titre+"%");
 				
-				
-				
-				return query;
-	}
+						return query.getResultList();
+													  }
 	@Override
 	public List<Job> findAllJobs() {
 		 List<Job> query = em.createQuery("Select e from Job e ", Job.class).getResultList();
@@ -71,10 +91,11 @@ public class JobsService implements JobServiceRemote {
 		
 	}
 	@Override
-	public void deleteJobById(int jibId) {
+	public boolean deleteJobById(int jibId) {
 
 		Job j = em.find(Job.class, jibId);
 		em.remove(j);
+		return true ;
 	}
 	@Override
 	public void updateJob(Job job) {
@@ -86,33 +107,46 @@ public class JobsService implements JobServiceRemote {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	public Job FindByJobById(int id) {
+		Job job = em.find(Job.class, id);
+		
+		
+		return job;
+	}
 	@Override
-	 public  void sendMessage(String emailaddress, String subject, String body) {
-	        try {
-	           Properties props = new Properties();
-	           props.setProperty("mail.smtp.port", "25");
-	           props.setProperty("hichem.alouis123@gmail.com", "tunis123456");
-
-	           Session mailSession = Session.getDefaultInstance(props, null);
-	           Transport transport = mailSession.getTransport();
-
-	           MimeMessage message = new MimeMessage(mailSession);
-	           message.setSubject("Testing javamail plain");
-	           message.setContent("This is a test", "text/plain");
-	           message.addRecipient(Message.RecipientType.TO, new InternetAddress("ali.methnani@esprit.tn"));
-
-	           transport.connect();
-	           transport.sendMessage(message,
-	                   message.getRecipients(Message.RecipientType.TO));
-	           transport.close();
-	        } catch (MessagingException ex) {
-	           ex.printStackTrace();
-	           System.out.println("failed");
-	        }
-	
-
-	
-	
+	public void sendSmS() {
+		// TODO Auto-generated method stub
+		String myURL="https://rest.nexmo.com/sms/json?api_key=3d9c32a3&api_secret=cea66b40a461623e&to=216"+
+	            "28440610"+"&from=InsuranceApp&text=+We+successfuly+received+you+Accident+Statement";
+	    System.out.println(myURL);
+		    StringBuilder sb = new StringBuilder();
+		    URLConnection urlConn = null;
+		    InputStreamReader in = null;
+		    try {
+		        URL url = new URL(myURL);
+		        urlConn = url.openConnection();
+		        if (urlConn != null)
+		            urlConn.setReadTimeout(60 * 1000);
+		        if (urlConn != null && urlConn.getInputStream() != null) {
+		            in = new InputStreamReader(urlConn.getInputStream(),
+		                    Charset.defaultCharset());
+		            BufferedReader bufferedReader = new BufferedReader(in);
+		            if (bufferedReader != null) {
+		                int cp;
+		                while ((cp = bufferedReader.read()) != -1) {
+		                    sb.append((char) cp);
+		                }
+		                bufferedReader.close();
+		            }
+		        }
+		        in.close();
+		    } catch (Exception e) {
+		        throw new RuntimeException("Exception while calling URL:"+ myURL, e);
+		    }
+			
+		
 	}
 
 }
