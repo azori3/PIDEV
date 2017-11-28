@@ -2,7 +2,11 @@ package com.esprit.pidev.entity;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Entity implementation class for Entity: Category
@@ -13,40 +17,37 @@ import javax.persistence.*;
 public class Category implements Serializable {
 
 	   
-
-	private int id;
-	private String ContentCat;
-	private static final long serialVersionUID = 1L;
-
-	private Users users;
-	
-	
-	
-	@ManyToOne
-	public Users getUsers() {
-		return users;
-	}
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-	public Category() {
-		super();
-	}   
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idCategory;
+	@Column
+	private String NameCategory;
+	@JsonIgnore
+	@OneToMany(mappedBy="idCategory",cascade={CascadeType.PERSIST,CascadeType.REMOVE},fetch=FetchType.LAZY)
+	private List<SousCategory> SousCategories;
 	public int getIdCategory() {
-		return this.id;
+		return idCategory;
 	}
-
 	public void setIdCategory(int idCategory) {
-		this.id = idCategory;
-	}   
-	public String getContentCat() {
-		return this.ContentCat;
+		this.idCategory = idCategory;
+	}
+	public String getNameCategory() {
+		return NameCategory;
+	}
+	public void setNameCategory(String nameCategory) {
+		NameCategory = nameCategory;
+	}
+	@JsonIgnore
+	public List<SousCategory> getSousCategories() {
+		return SousCategories;
+	}
+	public void setSousCategories(List<SousCategory> sousCategories) {
+		SousCategories = sousCategories;
 	}
 
-	public void setContentCat(String ContentCat) {
-		this.ContentCat = ContentCat;
-	}
+	
+	
+ 
+
    
 }
